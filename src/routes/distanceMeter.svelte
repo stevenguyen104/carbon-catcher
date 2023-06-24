@@ -1,0 +1,41 @@
+<div class="container">
+    <h1 class="distance-text">Distance Travelled</h1>
+    <div class="bar">
+        <div class="progress"></div> 
+        <!-- progress width change according to distance from api -->
+    </div>
+    
+</div>
+
+<style>
+    .container {
+        position: relative;
+        align-items: center;
+        padding: 1vw;
+    }
+
+    .distance-text {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 4vw;
+        text-align: center;
+    }
+
+    .bar {
+        position: absolute;
+        right: 10%;
+        left: 10%;
+
+        width: 80%;
+        height: 2.5vw;
+        background-color: #D9D9D9;
+        border-radius: 2vw;
+    }
+
+    .progress {
+        max-width: 100%;
+        background-color:cadetblue;
+        width: 10%; /* make this part change according to distance from api*/
+        height: 2.5vw;
+        border-radius: 2vw;
+    }
+</style>

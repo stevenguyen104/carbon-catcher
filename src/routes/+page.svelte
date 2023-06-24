@@ -1,7 +1,9 @@
 <script>
-    import TestButton from './testButton.svelte';
+    import DistanceMeter from './distanceMeter.svelte';
+    import EmissionMeter from './emissionMeter.svelte';
+    import Profile from './profile.svelte';
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<TestButton />
+<Profile />
+<DistanceMeter />
+<EmissionMeter />
