@@ -1,6 +1,5 @@
 <script>
     import TestButton from './testButton.svelte';
-import testButton from './testButton.svelte';
 </script>
 
 <h1>Welcome to SvelteKit</h1>
