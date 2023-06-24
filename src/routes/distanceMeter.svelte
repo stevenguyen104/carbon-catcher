@@ -1,7 +1,3 @@
-<script>
-
-</script>
-
 <div class="container">
     <h1 class="distance-text">Distance Travelled</h1>
     <div class="bar">
