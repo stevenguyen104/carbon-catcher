@@ -57,7 +57,7 @@
 
         align-items: center;
         z-index: 1;
-        top: 90vw;
+        top: 120vw;
         left: 35vw;
     }
 
