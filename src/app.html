@@ -6,7 +6,45 @@
 		<meta name="viewport" content="width=device-width" />
 		%sveltekit.head%
 	</head>
+
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
+
+		<button onclick="startLocation()">Start Tracking</button>
+		<div id = "demo"></div>
+		<button onclick="stopLocation()">Stop Tracking</button>
+
+		<script>
+			var x = document.getElementById("demo");
+			var timePassed = 0;
+			var prev = 0;
+
+			function startLocation() {
+				var tid = setTimeout(getLocation, 10000);
+			}
+
+			// every 10 sec
+			function getLocation() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(showPosition);
+				} else {
+					x.innerHTML = "Geolocation is not supported by this browser.";
+				}
+				timePassed += 10;
+				tid = setTimeout(getLocation, 10000);
+			}
+				
+			function showPosition(position) {
+				x.innerHTML = "Latitude: " + position.coords.latitude +
+				"<br>Longitude: " + position.coords.longitude + 
+				"<br>Time: " + timePassed + " sec";
+			}
+
+			function stopLocation() {
+				clearTimeout(tid);
+			}
+		</script>
+
 	</body>
+	  
 </html>
