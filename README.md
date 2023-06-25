@@ -1,3 +1,8 @@
+# carbon catcher
+install node.js from https://nodejs.org/en
+run ```npm install``` while in the folder working directory
+run ```npm run dev``` to run the website and `o` to launch it in your browser
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
