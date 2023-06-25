@@ -12,12 +12,15 @@
 
 		<button onclick="startLocation()">Start Tracking</button>
 		<div id = "demo"></div>
+		<div id = "distance"></div>
 		<button onclick="stopLocation()">Stop Tracking</button>
 
 		<script>
 			var x = document.getElementById("demo");
+			var y = document.getElementById("distance");
 			var timePassed = 0;
-			var prev = 0;
+			var prev = undefined;
+			var totalD = 0;
 
 			function startLocation() {
 				var tid = setTimeout(getLocation, 10000);
@@ -38,10 +41,28 @@
 				x.innerHTML = "Latitude: " + position.coords.latitude +
 				"<br>Longitude: " + position.coords.longitude + 
 				"<br>Time: " + timePassed + " sec";
+
+				if (prev != undefined) {
+					totalD += distance(prev.coords.latitude, prev.coords.longitude,
+					position.coords.latitude, position.coords.longitude);
+				} else {
+					prev = position;
+				}
 			}
 
 			function stopLocation() {
+				y.innerHTML = "Total distance traveled is: " + totalD + " km";
 				clearTimeout(tid);
+			}
+
+			function distance(lat1, lon1, lat2, lon2) {
+				var p = 0.017453292519943295;    // Math.PI / 180
+				var c = Math.cos;
+				var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+						c(lat1 * p) * c(lat2 * p) * 
+						(1 - c((lon2 - lon1) * p))/2;
+
+				return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 			}
 		</script>
 
