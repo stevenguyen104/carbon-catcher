@@ -17,11 +17,12 @@
         position: relative;
         align-items: center;
         padding: 1vw;
+        margin-bottom: 10vw;
     }
 
     .distance-text {
         font-family: 'Courier New', Courier, monospace;
-        font-size: 4vw;
+        font-size: 5.4vw;
         text-align: center;
     }
 
@@ -31,7 +32,7 @@
         left: 10%;
 
         width: 80%;
-        height: 2.5vw;
+        height: 3.5vw;
         background-color: #D9D9D9;
         border-radius: 2vw;
     }
@@ -39,7 +40,7 @@
     .progress {
         max-width: 100%;
         background-color:cadetblue;
-        height: 2.5vw;
+        height: 3.5vw;
         border-radius: 2vw;
     }
 </style>

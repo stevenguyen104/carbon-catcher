@@ -95,6 +95,8 @@
 
     let start = false;
 
+    let co2emissions = 0;
+
     function toggleStart() {
         start = !start;
         if (start) {
@@ -103,21 +105,30 @@
             stopLocation();
         }
     }
-    let co2emissions = 0;
+    
+    function resetAll() {
+        timePassed = 0;
+        // @ts-ignore
+        prev = undefined;
+        totalD = 0;
+        // @ts-ignore
+        tid = undefined;
+    }
 </script>
 
-<h2> Enter your CO2 Emissions in grams per kilometers </h2>
-<input type="number" bind:value={co2emissions} />
+<h2 class="prompt"> Enter your car's CO2 Emissions in grams per kilometers </h2>
+<input id="number" type="number" bind:value={co2emissions}/>
 
 <button class="startButton {start ? 'start' : ''}" on:click={toggleStart}>{!start ? "Start Tracking" : "Stop Tracking"}</button>
+<button class="reset" on:click={resetAll}>Reset</button>
 
-<EmissionMeter emissions={co2emissions}/>
-<DistanceMeter dist={totalD}/>
+<EmissionMeter emissions={co2emissions * totalD}/>
 
 <div>
-    <h1>{co2emissions}/{totalD}</h1>
+    <h1 class="current">{(co2emissions == null || totalD == 0) ? 0.0 : co2emissions * totalD / 1000} kg</h1>
 </div>
 
+<DistanceMeter dist={totalD}/>
 <div class="dropdown">
     <button class="btn {isClicked ? 'active' : ''}" on:click={toggle}>
         <span id="text">{name}</span>
@@ -126,13 +137,76 @@
     <ul class="content">
         <li id="time">Time Elapsed: {timePassed} seconds</li>
         <li id="dist">Distance: {totalD} km</li>
-        <li id="mpg">Average MPG: </li>
-        <li id="speed">Average Speed: {totalD/timePassed/10} km/s</li>
-        <li id="emission">Carbon Emission (g): </li>
+        <li id="speed">Average Speed: {(timePassed == 0) ? 0 : totalD/timePassed/10} km/s</li>
+        <li id="emission">Carbon Emission (g): {co2emissions * totalD} g</li>
     </ul>
 </div>
 
 <style>
+    .prompt {
+        margin-top: 20vw;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 5vw;
+        text-align: center;
+    }
+
+    input {
+        width: 75%;
+        height: 7vw;
+        margin-left: 12.5vw;
+        margin-right: 12.5vw;
+        margin-bottom: 10vw;
+
+        border-radius: 1vw;
+        border-color: #D9D9D9;
+
+        font-size: 5vw;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    .startButton {
+        width: 33vw;
+        height: 15vw;
+
+        position: absolute;
+        left: 15vw;
+
+        font-size: 5vw;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+
+        background-color: #B8FBA2;
+        border-radius: 2vw;
+    }
+
+    .start {
+        background-color: #F8D8F0;
+    }
+
+    .reset {
+        width: 33vw;
+        height: 15vw;
+
+        position: absolute;
+        right: 15vw;
+
+        font-size: 5vw;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+
+        background-color: #F8D8E0;
+        border-radius: 2vw;
+    }
+
+    .current {
+        text-align: center;
+        background-color: #D9D9D9;
+        margin-left: 15vw;
+        margin-right: 15vw;
+        border-radius: 4vw;
+        margin-top: 0;
+    }
+
     .dropdown {
         max-width: 85vw;
         margin: 6vw;
@@ -167,9 +241,12 @@
     .content {
         text-align: left;
         padding: 0;
-        padding-right: 2.5em;
-        margin-top: 0;
+        margin-right: 6vw;
+        margin-top: 3vw;
         border-radius: 0.5em;
+
+        max-width: 85vw;
+        width: 100%;
 
         background-color:#BECFFE;
         max-height:0;
@@ -185,6 +262,9 @@
         padding:2.5vw;
         width: 67vw;
         list-style: none;
+        font-size: 4vw;
+        font-family:'Courier New', Courier, monospace;
+        font-weight: 600;
     }
 
     .active + .content {
