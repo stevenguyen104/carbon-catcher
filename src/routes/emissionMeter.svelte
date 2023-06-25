@@ -1,26 +1,31 @@
 <!-- add script to collect emissions -->
 
 <script>
+// @ts-nocheck
+
     import HappyCar from "../assets/emission_meter/Happy Car.svg";
     import NeutralCar from "../assets/emission_meter/Neutral Car.svg";
     import SadCar from "../assets/emission_meter/Sad Car.svg";
 
-    var emissions = 19;
+    export let emissions;
 </script>
 
 
 
 <div class="container">
-    <h1>Total Yearly Emmissions</h1>
-    <div class="progress-bar"/>
+    <h1>Daily Recommended Emmissions</h1>
+    <div class="progress-bar" style="background: 
+    linear-gradient(to left, transparent 50%, white 50%),
+    radial-gradient(closest-side, white 90%, transparent 80% 100%),
+    conic-gradient(#3FF651 {emissions/12.6 * 100 / 2}%, #D9D9D9 0); /* first percentage controls value */"/>
     <h1>Current Car Emissions</h1>
 </div>
 
 <!-- have an if svelte condition for which of the three to appear -->
 <div class="car_icon">
-    {#if emissions < 10}
+    {#if emissions/12.6 < .33}
         <img src="{HappyCar}">
-    {:else if emissions < 20}
+    {:else if emissions/12.6 < .66}
         <img src="{NeutralCar}"/>
     {:else}
         <img src="{SadCar}"/>

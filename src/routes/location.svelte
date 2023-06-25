@@ -1,7 +1,12 @@
 <script>
+    import DistanceMeter from './distanceMeter.svelte';
+    import EmissionMeter from './emissionMeter.svelte';
+
     let timePassed = 0;
+    // @ts-ignore
     let prev;
     let totalD = 0;
+    // @ts-ignore
     let tid;
 
     function startLocation() {
@@ -18,6 +23,7 @@
         tid = setTimeout(getLocation, 10000);
     }
 
+    // @ts-ignore
     function showPosition(position) {
         console.log(
         "Latitude: " +
@@ -29,9 +35,12 @@
             " sec"
         );
 
+        // @ts-ignore
         if (prev !== undefined) {
         totalD += distance(
+            // @ts-ignore
             prev.coords.latitude,
+            // @ts-ignore
             prev.coords.longitude,
             position.coords.latitude,
             position.coords.longitude
@@ -43,9 +52,11 @@
 
     function stopLocation() {
         console.log("Total distance traveled is: " + totalD + " km");
+        // @ts-ignore
         clearTimeout(tid);
     }
 
+    // @ts-ignore
     function distance(lat1, lon1, lat2, lon2) {
         const p = 0.017453292519943295; // Math.PI / 180
         const c = Math.cos;
@@ -82,11 +93,30 @@
         isClicked = !isClicked;
     }
 
-    export let dist = totalD;
+    let start = false;
+
+    function toggleStart() {
+        start = !start;
+        if (start) {
+            startLocation();
+        } else {
+            stopLocation();
+        }
+    }
+    let co2emissions = 0;
 </script>
 
-<button on:click={startLocation}>Start Tracking</button>
-<button on:click={stopLocation}>Stop Tracking</button>
+<h2> Enter your CO2 Emissions in grams per kilometers </h2>
+<input type="number" bind:value={co2emissions} />
+
+<button class="startButton {start ? 'start' : ''}" on:click={toggleStart}>{!start ? "Start Tracking" : "Stop Tracking"}</button>
+
+<EmissionMeter emissions={co2emissions}/>
+<DistanceMeter dist={totalD}/>
+
+<div>
+    <h1>{co2emissions}/{totalD}</h1>
+</div>
 
 <div class="dropdown">
     <button class="btn {isClicked ? 'active' : ''}" on:click={toggle}>

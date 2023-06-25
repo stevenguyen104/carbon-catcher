@@ -1,10 +1,15 @@
+<script>
+// @ts-nocheck
+
+    export let dist;
+</script>
+
 <div class="container">
     <h1 class="distance-text">Distance Travelled</h1>
     <div class="bar">
-        <div class="progress"></div> 
+        <div class="progress" style="width:{dist/10000 * 100}%"></div> 
         <!-- progress width change according to distance from api -->
     </div>
-    
 </div>
 
 <style>
@@ -34,7 +39,6 @@
     .progress {
         max-width: 100%;
         background-color:cadetblue;
-        width: 10%; /* make this part change according to distance from api*/
         height: 2.5vw;
         border-radius: 2vw;
     }
